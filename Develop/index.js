@@ -1,6 +1,7 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
 const{ writeFile } = require('fs');
+const { start } = require('repl');
 
 
 
@@ -55,6 +56,16 @@ inquirer.prompt([
         message: 'Enter your email address.',
         name: 'email'
     },
+    {
+        type: 'input',
+        message: 'Enter instructions on how to reach you.',
+        name: 'instructionsToReachOut'
+    },
+    {
+        type: 'input',
+        message: 'To add additional questions, type the question and then the answer, seperated by a comma. Start every question with Q. and every answer with A. , do this for as many questions as you wish. EG - Q. What version is the application?, A. version 1.0.1., Q. When is the next update scheduled to come out?, A. By the end of 2023.',
+        name: 'questionsAndAnswers'
+    },
 ]).then(answers => {
     console.log(answers)
 
@@ -95,7 +106,7 @@ inquirer.prompt([
     let sectionsString = '';
 
     arrayOfContents.forEach(function(element) {
-        sectionsString = sectionsString.concat(`## ${element}\n`)
+        sectionsString = sectionsString.concat(`## ${element}\n\n`)
         console.log(sectionsString)
     })
 
@@ -159,6 +170,69 @@ inquirer.prompt([
      
 
 
+    const generateLicenseLink = function(licenseString) {
+
+        const lowercaseLicense = licenseString.toLowerCase();
+
+        if(lowercaseLicense === 'apache') {
+            return 'https://www.apache.org/licenses/LICENSE-2.0'
+        } else if(lowercaseLicense === 'gnu') {
+            return 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+        } else if(lowercaseLicense === 'isc') {
+            return 'https://choosealicense.com/licenses/isc/'
+        } else if(lowercaseLicense === 'mit') {
+            return 'https://choosealicense.com/licenses/mit/'
+        } else if(lowercaseLicense === 'boost') {
+            return 'https://www.boost.org/users/license.html'
+        } else if(lowercaseLicense === 'mozilla') {
+            return 'https://www.mozilla.org/en-US/MPL/2.0/'
+        }
+        
+    }
+
+
+
+    // generate other questions the user wants to display on README file.
+    const arrayOfQsAndAnswers = answers.questionsAndAnswers.split(', ');
+
+    console.log(arrayOfQsAndAnswers);
+
+    let arrayOfQs = []
+    let arrayOfAnswers = []
+    arrayOfQsAndAnswers.forEach(function(element) {
+
+        if(element.includes('Q. ')) {
+            arrayOfQs.push(element)
+        } else if(element.includes('A. ')) {
+            arrayOfAnswers.push(element)
+        }
+
+    })
+
+    console.log(arrayOfQs);
+    console.log(arrayOfAnswers);
+
+    const generateQuestions = function(questionsArray, AnswersArray) {
+        let startingString = ''
+
+        for(let i = 0; i<arrayOfQs.length; i++) {
+            
+            startingString = startingString.concat(`${arrayOfQs[i]}\n\n`);
+
+            startingString = startingString.concat(`${arrayOfAnswers[i]}\n\n`)
+        }
+
+        console.log(startingString)
+
+        return startingString;
+    }
+
+   
+
+
+
+    
+
 
 
 
@@ -194,14 +268,23 @@ ${answers.contribution}
 ${answers.testGuidelines}
 
 ## License
-${generateLicenseText(answers.license)}
+${generateLicenseText(answers.license)}\n
+Licence link URL - ${generateLicenseLink(answers.license)}
 
 ## Questions Section
-GitHub Profile... \n
-github.com/${answers.githubUsername}
 
-Email Address... \n
-${answers.email}
+Q. What is the GitHub profile?\n
+A. github.com/${answers.githubUsername}
+
+Q. What is the email address...\n
+A. ${answers.email}
+
+Q. What are the instructions for reaching out...
+A. ${answers.instructionsToReachOut}
+
+${generateQuestions(arrayOfQs, arrayOfAnswers)}
+
+
 
 ${sectionsString};
 

@@ -1,6 +1,6 @@
 # title
     
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+undefined
 
 
 ## Description
@@ -13,40 +13,53 @@ desc
 - [Testing](#testing)
 - [License](#license)
 - [Questions](#questions)
-- [User Agreement](#user-agreement)
-- [Merging requests](#merging-requests)
-- [Conclusion](#conclusion)
-- [Deployed Application Link](#deployed-application-link)
+- [](#)
 
 
 ## Installation
-install
+
 
 ## Usage
-usage
+
 
 ## Contributions
-contribute
+
 
 ## Testing
-test with jest
+
 
 ## License
+undefined
 
+Licence link URL - undefined
 
 ## Questions Section
-GitHub Profile... 
 
-github.com/IshanWijesingha99
+Q. What is the GitHub profile?
 
-Email Address... 
+github.com/
 
-Ishanwijes@gmail.com
+Q. What is the email address...
 
-## User Agreement
-## Merging requests
-## Conclusion
-## Deployed Application Link
+
+
+Q. What are the instructions for reaching out...
+
+
+Q. What version is the application currently?
+
+A. version 1.0.1.
+
+Q. When is the next update scheduled to come out?
+
+A. By the end of 2023.
+
+
+
+
+
+## 
+
 ;
 
 
