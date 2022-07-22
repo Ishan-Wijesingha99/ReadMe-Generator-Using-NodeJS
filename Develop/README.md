@@ -1,10 +1,10 @@
-# title
+# 
     
-undefined
+[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 
 ## Description
-desc
+
 
 ## Table of Contents
 - [Installation](#installation)
@@ -29,30 +29,22 @@ desc
 
 
 ## License
-undefined
+Under the Apache License 2.0, users may distribute and modify software. Users may also use it commercially or patent it. Private use is also available. In order to do this, the license must be present and be inline with copyright notices.
 
-Licence link URL - undefined
+Licence link URL - https://www.apache.org/licenses/LICENSE-2.0
 
 ## Questions Section
 
 Q. What is the GitHub profile?
 
-github.com/
+A. github.com/
 
 Q. What is the email address...
 
-
+A. 
 
 Q. What are the instructions for reaching out...
-
-
-Q. What version is the application currently?
-
-A. version 1.0.1.
-
-Q. When is the next update scheduled to come out?
-
-A. By the end of 2023.
+A. 
 
 
 
