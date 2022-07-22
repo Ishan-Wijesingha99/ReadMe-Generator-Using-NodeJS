@@ -1,5 +1,6 @@
 // TODO: Include packages needed for this application
 const inquirer = require('inquirer');
+const{ writeFile } = require('fs');
 
 
 
@@ -16,7 +17,7 @@ inquirer.prompt([
     },
     {
         type: 'input',
-        message: 'For the table of contents section, list each section you wish to include seperated by commas. EG - Installation, Usage, Conclusion',
+        message: 'For the table of contents section, other than Installation, Usage, Contributions, Testing and Questions, list any other sections you wish to include. Give your answer seperated by commas with first letter capitalised. EG - User Agreement, Merging Requirement, Conclusion',
         name: 'tableOfContents'
     },
     {
@@ -51,13 +52,90 @@ inquirer.prompt([
     },
 ]).then(answers => {
     console.log(answers)
+
+    // for generating table of contents
+    const arrayOfContents = answers.tableOfContents.split(', ')
+    console.log(arrayOfContents);
+
+    const contentTableFunction = function(array) {
+        
+        let entireString = ''
+        // let finalString;
+
+        array.forEach(function(element) {
+
+            // make the entire string lowercase
+            const allLowerCase = element.toLowerCase();
+            
+            // need to make first letter capitalised as well
+
+            let elementWithNoSpaces;
+            // what if one of the elements contains more than one word, need to check for ' '
+            if(allLowerCase.includes(' ')) {
+                elementWithNoSpaces = allLowerCase.replaceAll(' ', '-')
+
+                entireString = entireString.concat(`- [${element}](#${elementWithNoSpaces})\n`) 
+            } else {
+                entireString = entireString.concat(`- [${element}](#${allLowerCase})\n`) 
+            }
+
+           
+        })
+
+        console.log(entireString);
+
+        return entireString;
+    }
+
+    let sectionsString = '';
+
+    arrayOfContents.forEach(function(element) {
+        sectionsString = sectionsString.concat(`## ${element}\n`)
+        console.log(sectionsString)
+    })
+
+
+    writeFile('./README.md', 
+    `# ${answers.title}
     
+## Description
+${answers.description}
+
+## Table of Contents
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributions](#contributions)
+- [Testing](#testing)
+- [Questions](#questions)
+${contentTableFunction(arrayOfContents)}
+
+## Installation
+${answers.installInstructions}
+
+## Usage
+${answers.usage}
+
+## Contributions
+${answers.contribution}
+
+## Testing
+${answers.testGuidelines}
+
+## Questions Section
+GitHub Profile... \n
+github.com/${answers.githubUsername}
+
+Email Address... \n
+${answers.email}
+
+${sectionsString};
 
 
 
-
-
-
+`, 
+    error => {
+        if(error) console.error(error);
+    })
 })
 
 
