@@ -2,6 +2,7 @@
 // function that returns license badge based off string passed in
 const renderLicenseBadge = function(licenseString) {
 
+    // make sure all letters in the string passed in are lowercase
     const lowercaseLicense = licenseString.toLowerCase();
 
     if(lowercaseLicense === 'apache') {
@@ -17,17 +18,18 @@ const renderLicenseBadge = function(licenseString) {
     } else if(lowercaseLicense === 'mozilla') {
         return '[![License: MPL 2.0](https://img.shields.io/badge/License-MPL_2.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)'
     } else {
+        // if the string passed in does not match to one of the above licenses, return an empty string
         return '';
     }
-
 
 }
 
 
 
-// TODO: Create a function that returns the license section of README
+// function that returns the license section of README
 const renderLicenseSection = function(licenseString) {
 
+    // make sure all letters in the string passed in are lowercase
     const lowercaseLicense = licenseString.toLowerCase();
 
     if(lowercaseLicense === 'apache') {
@@ -55,6 +57,7 @@ const renderLicenseSection = function(licenseString) {
         // https://www.mozilla.org/en-US/MPL/2.0/
         return 'The Mozilla Public License 2.0 states... Each Contributor hereby grants You a world-wide, royalty-free, non-exclusive license: under intellectual property rights (other than patent or trademark) Licensable by such Contributor to use, reproduce, make available, modify, display, perform, distribute, and otherwise exploit its Contributions, either on an unmodified basis, with Modifications, or as part of a Larger Work; and under Patent Claims of such Contributor to make, use, sell, offer for sale, have made, import, and otherwise transfer either its Contributions or its Contributor Version.'
     } else {
+        // if the string passed in does not match to one of the above licenses, return an empty string
         return '';
     }
 
@@ -62,11 +65,10 @@ const renderLicenseSection = function(licenseString) {
 
 
 
-
-
-// TODO: Create a function that returns the license link
+// function that returns the link to a license
 const renderLicenseLink = function(licenseString) {
 
+    // make sure all letters in the string passed in are lowercase
     const lowercaseLicense = licenseString.toLowerCase();
 
     if(lowercaseLicense === 'apache') {
@@ -82,6 +84,7 @@ const renderLicenseLink = function(licenseString) {
     } else if(lowercaseLicense === 'mozilla') {
         return 'https://www.mozilla.org/en-US/MPL/2.0/'
     } else {
+        // if the string passed in does not match to one of the above licenses, return an empty string
         return '';
     }
 
@@ -89,11 +92,10 @@ const renderLicenseLink = function(licenseString) {
 
 
 
+// export functions
 module.exports = {
     renderLicenseBadge,
     renderLicenseSection,
     renderLicenseLink
 };
-
-console.log(module.exports)
 

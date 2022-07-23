@@ -1,11 +1,14 @@
-// TODInclude packages needed for this application
+
+// import modules we need
 const inquirer = require('inquirer');
 const { writeFile } = require('fs');
 const { renderLicenseBadge, renderLicenseSection, renderLicenseLink } = require('./utils/generateLicense')
 
 
 
+// inquire user in the terminal section
 inquirer.prompt([
+    // questions asked in terminal
     {
         type: 'input',
         message: 'Enter the title you would like for your README file.',
@@ -69,101 +72,101 @@ inquirer.prompt([
 ]).then(answers => {
     console.log(answers)
 
-    // for generating table of contents
-    const arrayOfContents = answers.tableOfContents.split(', ')
-    console.log(arrayOfContents);
+    // generating table of contents
 
+    // split the string answers.tableOfContents into an array
+    const arrayOfContents = answers.tableOfContents.split(', ')
+
+    // function for generating table of contents
     const contentTableFunction = function(array) {
         
+        // start content table string as an empty string
         let entireString = ''
-        // let finalString;
 
+        // loop over each section user wants to include in table of contents
         array.forEach(function(element) {
 
             // make the entire string lowercase
             const allLowerCase = element.toLowerCase();
-            
-            // need to make first letter capitalised as well
 
+            // need to check if one of the elements contains more than one word; need to check for ' '
             let elementWithNoSpaces;
-            // what if one of the elements contains more than one word, need to check for ' '
             if(allLowerCase.includes(' ')) {
+                // replace spaces with hyphen
                 elementWithNoSpaces = allLowerCase.replaceAll(' ', '-')
 
+                // keep adding to the initial empty string so that by the end of the loop, the entire table of contents text is generated
                 entireString = entireString.concat(`- [${element}](#${elementWithNoSpaces})\n`) 
             } else {
+                 // keep adding to the initial empty string so that by the end of the loop, the entire table of contents text is generated
                 entireString = entireString.concat(`- [${element}](#${allLowerCase})\n`) 
             }
 
-           
         })
 
-        console.log(entireString);
-
+        // return the final string which is the entire table of contents section
         return entireString;
     }
 
+
+
+    // now that we've added the table of contents, we now need to add sections to the readme for each section the user entered in
+
+    // start with an empty string
     let sectionsString = '';
 
+    // loop over the array which has all the sections the user wants to include in table of contents
     arrayOfContents.forEach(function(element) {
-        sectionsString = sectionsString.concat(`## ${element}\n\n`)
-        console.log(sectionsString)
+        // continually add to the initially empty string so that by the end of the loop, it contains all the sections needed by the user
+        sectionsString = sectionsString.concat(`## ${element}\n\n`);
     })
-
-
 
    
 
+    // generate other questions the user wants to display on readme file.
 
-
-    
-
-
-    // generate other questions the user wants to display on README file.
+    // split questions and answers given by user into an array
     const arrayOfQsAndAnswers = answers.questionsAndAnswers.split(', ');
 
-    console.log(arrayOfQsAndAnswers);
-
+    // create empty arrays, one for the questions the user has entered, and one for the answers the user has entered
     let arrayOfQs = []
     let arrayOfAnswers = []
+
+    // loop over array of Qs and answers
     arrayOfQsAndAnswers.forEach(function(element) {
 
         if(element.includes('Q. ')) {
+            // push questions into arrayOfQs
             arrayOfQs.push(element)
         } else if(element.includes('A. ')) {
+            // push answers into arrayOfAnswers
             arrayOfAnswers.push(element)
         }
 
     })
 
-    console.log(arrayOfQs);
-    console.log(arrayOfAnswers);
-
+    // function to generate questions and answers user entered into command prompt
     const generateQuestions = function(questionsArray, AnswersArray) {
+        // start with empty string
         let startingString = ''
 
+        // loop over BOTH the arrayOfQs and arrayOfAnswers using a for-loop
         for(let i = 0; i<arrayOfQs.length; i++) {
             
+            // for the current iteration, add to startingString, first concat the question
             startingString = startingString.concat(`${arrayOfQs[i]}\n\n`);
 
+            // then concat the answer for the current iteration
             startingString = startingString.concat(`${arrayOfAnswers[i]}\n\n`)
         }
 
-        console.log(startingString)
-
+        // at the end of the loop, the final string should contain all the questions and answers, return this
         return startingString;
     }
 
-   
 
 
-
-    
-
-
-
-
-
+    // write the file based off the input the user has provided in the terminal
     writeFile('./README.md', 
 `# ${answers.title}
     
@@ -212,26 +215,12 @@ A. ${answers.instructionsToReachOut}
 ${generateQuestions(arrayOfQs, arrayOfAnswers)}
 
 
-
 ${sectionsString};
-
-
-
 `, 
     error => {
+        // if there is an error, log it to the console as an error
         if(error) console.error(error);
     })
 })
 
 
-// // TODO: Create an array of questions for user input
-// const questions = [];
-
-// // TODO: Create a function to write README file
-// function writeToFile(fileName, data) {}
-
-// // TODO: Create a function to initialize app
-// function init() {}
-
-// // Function call to initialize app
-// init();
