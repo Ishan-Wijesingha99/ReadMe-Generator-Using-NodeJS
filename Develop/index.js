@@ -206,16 +206,16 @@ Licence link URL - ${renderLicenseLink(answers.license)}
 Q. What is the GitHub profile?\n
 A. github.com/${answers.githubUsername}
 
-Q. What is the email address...\n
+Q. What is the email address?\n
 A. ${answers.email}
 
-Q. What are the instructions for reaching out...
+Q. What are the instructions for reaching out?\n
 A. ${answers.instructionsToReachOut}
 
 ${generateQuestions(arrayOfQs, arrayOfAnswers)}
 
 
-${sectionsString};
+${sectionsString}
 `, 
     error => {
         // if there is an error, log it to the console as an error
